@@ -1,0 +1,80 @@
+@startuml
+title Servicio de Reporte
+
+interface IReporteService {
+    +GenerarReporte(): void
+}
+
+class ReporteService {
+    -IReporteRepository _reporteRepository
+    -IVentaRepository _ventaRepository
+    -IClienteRepository _clienteRepository
+    -IProductoRepository _productoRepository
+    +GenerarReporte(): void
+}
+
+interface IReporteRepository {
+    +ObtenerReporteVentas(): List<Venta>
+}
+
+interface IVentaRepository {
+    +AgregarVenta(venta: Venta): void
+    +ObtenerVentaPorId(id: int): Venta
+    +ObtenerVentasPorCliente(clienteId: int): List<Venta>
+    +ObtenerVentasPorProducto(productoId: int): List<Venta>
+    +ObtenerVentasPorFecha(fecha: DateTime): List<Venta>
+}
+
+interface IClienteRepository {
+    +AgregarCliente(cliente: Cliente): void
+    +ObtenerClientePorId(id: int): Cliente
+    +ObtenerClientes(): List<Cliente>
+}
+
+interface IProductoRepository {
+    +AgregarProducto(producto: Producto): void
+    +ObtenerProductoPorId(id: int): Producto
+    +ObtenerProductos(): List<Producto>
+}
+
+class Reporte {
+    -int id
+    -DateTime fecha
+    -List<Venta> ventas
+    +GenerarReporte(): void
+}
+
+class Venta {
+    -int id
+    -DateTime fecha
+    -int clienteId
+    -int productoId
+    -int cantidad
+    -decimal total
+}
+
+class Cliente {
+    -int id
+    -string nombre
+    -string direccion
+    -string telefono
+}
+
+class Producto {
+    -int id
+    -string nombre
+    -decimal precio
+    -string descripcion
+}
+
+ReporteService -> IReporteRepository
+ReporteService -> IVentaRepository
+ReporteService -> IClienteRepository
+ReporteService -> IProductoRepository
+ReporteService --> IReporteService
+
+Reporte -> Venta
+Reporte -> Cliente
+Reporte -> Producto
+
+@enduml

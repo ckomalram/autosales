@@ -1,0 +1,22 @@
+@startuml
+' left to right direction
+skinparam packageStyle rect
+
+rectangle "Microservicio de Cliente" as cliente {
+  rectangle "Base de datos de clientes" as database
+  rectangle "Servicio de autenticación y autorización" as auth
+  rectangle "Servicio de pedidos" as orders
+  rectangle "Servicio de inventario" as inventory
+
+  cliente --> database
+  cliente --> auth
+  cliente --> orders
+  cliente --> inventory
+
+  database .up.|> BaseDeDatos : uses
+  auth .up.|> ServicioAuth : uses
+  orders .up.|> ServicioPedidos : uses
+  inventory .up.|> ServicioInventario : uses
+}
+
+@enduml

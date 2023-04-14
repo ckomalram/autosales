@@ -1,0 +1,55 @@
+@startuml
+title Servicio de Reporte
+
+interface IReportService {
+    +GenerarReporte()
+}
+
+interface IReportRepository {
+    +ObtenerDatos()
+}
+
+interface IDataAnalysisService {
+    +AnalizarDatos()
+}
+
+interface IDataVisualizationService {
+    +VisualizarDatos()
+}
+
+class ReportService {
+    -IReportRepository _reportRepository
+    -IDataAnalysisService _dataAnalysisService
+    -IDataVisualizationService _dataVisualizationService
+    +GenerarReporte()
+}
+
+class ReportRepository {
+    +ObtenerDatos()
+}
+
+class DataAnalysisService {
+    +AnalizarDatos()
+}
+
+class DataVisualizationService {
+    +VisualizarDatos()
+}
+
+IReportService <|.. ReportService
+IReportRepository <|.. ReportService : uses
+IDataAnalysisService <|.. ReportService : uses
+IDataVisualizationService <|.. ReportService : uses
+
+ReportService ..> IReportRepository : depends on
+ReportService ..> IDataAnalysisService : depends on
+ReportService ..> IDataVisualizationService : depends on
+
+ReportService ..> ProductService : gets data
+ReportService ..> PedidoService : gets data
+ReportService ..> ClienteService : gets data
+
+ReportService ..> DataVisualizationService : calls
+ReportService ..> DataAnalysisService : calls
+
+@enduml

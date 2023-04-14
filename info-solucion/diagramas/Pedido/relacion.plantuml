@@ -1,0 +1,103 @@
+@startuml
+left to right direction
+
+package "Pedido Service" {
+  interface IPedidoService {
+    +CrearPedido(pedido: Pedido): Pedido
+    +ActualizarPedido(pedido: Pedido): Pedido
+    +EliminarPedido(idPedido: int): bool
+    +ObtenerPedido(idPedido: int): Pedido
+    +ObtenerPedidosCliente(idCliente: int): List<Pedido>
+  }
+  interface IPedidoRepository {
+    +CrearPedido(pedido: Pedido): Pedido
+    +ActualizarPedido(pedido: Pedido): Pedido
+    +EliminarPedido(idPedido: int): bool
+    +ObtenerPedido(idPedido: int): Pedido
+    +ObtenerPedidosCliente(idCliente: int): List<Pedido>
+  }
+  
+  class Pedido {
+    -id: int
+    -cliente: Cliente
+    -fecha: DateTime
+    -productos: List<Producto>
+    -total: decimal
+  }
+  
+  interface IPedidoClienteService {
+    +ObtenerCliente(idCliente: int): Cliente
+  }
+  interface IPedidoProductoService {
+    +ObtenerProducto(idProducto: int): Producto
+  }
+}
+
+package "Cliente Service" {
+  interface IClienteService {
+    +CrearCliente(cliente: Cliente): Cliente
+    +ActualizarCliente(cliente: Cliente): Cliente
+    +EliminarCliente(idCliente: int): bool
+    +ObtenerCliente(idCliente: int): Cliente
+    +ObtenerClientes(): List<Cliente>
+  }
+  interface IClienteRepository {
+    +CrearCliente(cliente: Cliente): Cliente
+    +ActualizarCliente(cliente: Cliente): Cliente
+    +EliminarCliente(idCliente: int): bool
+    +ObtenerCliente(idCliente: int): Cliente
+    +ObtenerClientes(): List<Cliente>
+  }
+  
+  class Cliente {
+    -id: int
+    -nombre: string
+    -direccion: string
+    -telefono: string
+    -email: string
+  }
+}
+
+package "Producto Service" {
+  interface IProductoService {
+    +CrearProducto(producto: Producto): Producto
+    +ActualizarProducto(producto: Producto): Producto
+    +EliminarProducto(idProducto: int): bool
+    +ObtenerProducto(idProducto: int): Producto
+    +ObtenerProductos(): List<Producto>
+  }
+  interface IProductoRepository {
+    +CrearProducto(producto: Producto): Producto
+    +ActualizarProducto(producto: Producto): Producto
+    +EliminarProducto(idProducto: int): bool
+    +ObtenerProducto(idProducto: int): Producto
+    +ObtenerProductos(): List<Producto>
+  }
+  
+  class Producto {
+    -id: int
+    -nombre: string
+    -descripcion: string
+    -precio: decimal
+  }
+}
+
+PedidoService -> PedidoRepository
+PedidoRepository --> SQLServer: Implementa
+PedidoRepository --> IPedidoClienteService
+PedidoRepository --> IPedidoProductoService
+
+Pedido --> Cliente
+Pedido --> Producto
+
+ClienteService -> ClienteRepository
+ClienteRepository --> SQLServer: Implementa
+
+Cliente --> Pedido
+
+ProductoService -> ProductoRepository
+ProductoRepository --> SQLServer: Implementa
+
+Producto --> Pedido
+
+@enduml

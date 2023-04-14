@@ -1,0 +1,50 @@
+@startuml
+title Servicio de Cliente
+
+class Cliente {
+  -Id: int
+  -Nombre: string
+  -Apellido: string
+  -Email: string
+  -Telefono: string
+  -Direccion: string
+}
+
+interface IClienteRepository {
+  +GetAll(): List<Cliente>
+  +GetById(id: int): Cliente
+  +Add(cliente: Cliente): void
+  +Update(cliente: Cliente): void
+  +Delete(id: int): void
+}
+
+interface IClienteService {
+  +GetAllClientes(): List<Cliente>
+  +GetClienteById(id: int): Cliente
+  +AddCliente(cliente: Cliente): void
+  +UpdateCliente(cliente: Cliente): void
+  +DeleteCliente(id: int): void
+}
+
+class ClienteRepository {
+  -dbContext: DbContext
+  +GetAll(): List<Cliente>
+  +GetById(id: int): Cliente
+  +Add(cliente: Cliente): void
+  +Update(cliente: Cliente): void
+  +Delete(id: int): void
+}
+
+class ClienteService {
+  -clienteRepository: IClienteRepository
+  +GetAllClientes(): List<Cliente>
+  +GetClienteById(id: int): Cliente
+  +AddCliente(cliente: Cliente): void
+  +UpdateCliente(cliente: Cliente): void
+  +DeleteCliente(id: int): void
+}
+
+ClienteService ..> IClienteService
+IClienteService ..> IClienteRepository
+ClienteRepository ..> IClienteRepository
+@enduml

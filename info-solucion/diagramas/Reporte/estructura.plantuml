@@ -1,0 +1,34 @@
+@startuml
+title Servicio de Reporte
+
+interface IReporteService {
+    +GenerarReporte(filtro: FiltroReporte): ReporteDTO[]
+}
+
+interface IReporteRepository {
+    +ObtenerReportes(filtro: FiltroReporte): Reporte[]
+}
+
+class Reporte {
+    -int Id
+    -string Titulo
+    -DateTime Fecha
+    -string Contenido
+}
+
+class ReporteDTO {
+    -int Id
+    -string Titulo
+    -DateTime Fecha
+    -string Contenido
+}
+
+class ReporteRepository {
+    -dbContext: DbContext
+    +ObtenerReportes(filtro: FiltroReporte): Reporte[]
+}
+
+IReporteService -> IReporteRepository
+ReporteRepository -> DbContext
+Reporte --> ReporteDTO
+@enduml

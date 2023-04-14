@@ -1,0 +1,85 @@
+@startuml
+title Servicio de Producto
+
+interface IProductoService {
+    + List<Producto> ListarProductos()
+    + Producto ObtenerProducto(int id)
+    + void AgregarProducto(ProductoDto productoDto)
+    + void ActualizarProducto(int id, ProductoDto productoDto)
+    + void EliminarProducto(int id)
+}
+
+interface ICategoriaService {
+    + List<Categoria> ListarCategorias()
+    + Categoria ObtenerCategoria(int id)
+    + void AgregarCategoria(CategoriaDto categoriaDto)
+    + void ActualizarCategoria(int id, CategoriaDto categoriaDto)
+    + void EliminarCategoria(int id)
+}
+
+interface IProductoRepository {
+    + List<Producto> ListarProductos()
+    + Producto ObtenerProducto(int id)
+    + void AgregarProducto(Producto producto)
+    + void ActualizarProducto(Producto producto)
+    + void EliminarProducto(int id)
+}
+
+interface ICategoriaRepository {
+    + List<Categoria> ListarCategorias()
+    + Categoria ObtenerCategoria(int id)
+    + void AgregarCategoria(Categoria categoria)
+    + void ActualizarCategoria(Categoria categoria)
+    + void EliminarCategoria(int id)
+}
+
+class Producto {
+    - int Id
+    - string Nombre
+    - string Descripcion
+    - decimal Precio
+    - int Stock
+    - int CategoriaId
+}
+
+class Categoria {
+    - int Id
+    - string Nombre
+    - string Descripcion
+}
+
+class ProductoDto {
+    - string Nombre
+    - string Descripcion
+    - decimal Precio
+    - int Stock
+    - int CategoriaId
+}
+
+class CategoriaDto {
+    - string Nombre
+    - string Descripcion
+}
+
+class Mapper {
+    + ProductoDto MapToDto(Producto producto)
+    + Producto MapToEntity(ProductoDto productoDto)
+    + CategoriaDto MapToDto(Categoria categoria)
+    + Categoria MapToEntity(CategoriaDto categoriaDto)
+}
+
+class DTOs {
+    <<interface>>
+    + ProductoDto
+    + CategoriaDto
+}
+
+IProductoService --> IProductoRepository
+ICategoriaService --> ICategoriaRepository
+IProductoRepository --> Producto
+ICategoriaRepository --> Categoria
+IProductoService --> DTOs
+ICategoriaService --> DTOs
+Mapper --> ProductoDto
+Mapper --> CategoriaDto
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+title Arquitectura Backend para Software de Ventas Automotriz
+
+!define Table(name,desc) class name as "desc" { }
+!define Entity(name,desc) class name as "desc" << (E, #FFAAAA) >>
+!define Service(name,desc) class name as "desc" << (S, #AAFFAA) >>
+!define Repository(name,desc) class name as "desc" << (R, #AAAFFF) >>
+!define APIGateway(name,desc) class name as "desc" << (G, #FFFFAA) >>
+!define Database(name,desc) class name as "desc" << (DB, #AAAAFF) >>
+
+Entity(Client, "Cliente")
+Entity(Product, "Producto")
+Entity(Order, "Pedido")
+
+Service(ClientService, "Servicio de Cliente")
+Service(ProductService, "Servicio de Producto")
+Service(OrderService, "Servicio de Pedido")
+Service(ReportService, "Servicio de Reporte")
+
+Repository(ClientRepository, "Repositorio de Cliente")
+Repository(ProductRepository, "Repositorio de Producto")
+Repository(OrderRepository, "Repositorio de Pedido")
+
+APIGateway(APIGateway, "API Gateway")
+
+Database(SQLServer, "SQL Server")
+Database(MongoDB, "MongoDB")
+
+Client -> ClientService
+ClientService -> ClientRepository
+ClientRepository -> SQLServer
+
+Product -> ProductService
+ProductService -> ProductRepository
+ProductRepository -> MongoDB
+
+Order -> OrderService
+OrderService -> OrderRepository
+OrderRepository -> SQLServer
+
+ReportService -> SQLServer
+
+APIGateway -> ClientService
+APIGateway -> ProductService
+APIGateway -> OrderService
+APIGateway -> ReportService
+
+@enduml

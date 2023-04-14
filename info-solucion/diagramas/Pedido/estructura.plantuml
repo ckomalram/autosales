@@ -1,0 +1,45 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+interface IPedidoService {
+    +CrearPedido(pedido: Pedido): bool
+    +AgregarProducto(pedidoId: int, productoId: int, cantidad: int): bool
+    +EliminarProducto(pedidoId: int, productoId: int): bool
+    +ActualizarEstado(pedidoId: int, estado: string): bool
+    +ObtenerPedido(pedidoId: int): Pedido
+    +ObtenerPedidos(): Pedido[]
+}
+
+interface IPedidoRepository {
+    +AgregarPedido(pedido: Pedido): bool
+    +ActualizarPedido(pedido: Pedido): bool
+    +EliminarPedido(pedidoId: int): bool
+    +ObtenerPedido(pedidoId: int): Pedido
+    +ObtenerPedidos(): Pedido[]
+}
+
+class Pedido {
+    -int id
+    -int clienteId
+    -List<Producto> productos
+    -string estado
+    +int Id
+    +int ClienteId
+    +List<Producto> Productos
+    +string Estado
+}
+
+class Producto {
+    -int id
+    -string nombre
+    -double precio
+    +int Id
+    +string Nombre
+    +double Precio
+}
+
+IPedidoService -> Pedido
+IPedidoService -> Producto
+IPedidoRepository -> Pedido
+BaseDeDatos -> IPedidoRepository
+@enduml

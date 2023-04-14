@@ -1,0 +1,66 @@
+@startuml
+title Arquitectura Backend para Software de Ventas Automotriz
+
+!define Table(name,desc) class name as "desc" { }
+!define Entity(name,desc) class name as "desc" << (E, #FFAAAA) >>
+!define Service(name,desc) class name as "desc" << (S, #AAFFAA) >>
+!define Repository(name,desc) class name as "desc" << (R, #AAAFFF) >>
+!define APIGateway(name,desc) class name as "desc" << (G, #FFFFAA) >>
+!define Database(name,desc) class name as "desc" << (DB, #AAAAFF) >>
+
+Entity(Client, "Cliente")
+Entity(Product, "Producto")
+Entity(Order, "Pedido")
+
+Service(ClientService, "Servicio de Cliente")
+Service(ProductService, "Servicio de Producto")
+Service(OrderService, "Servicio de Pedido")
+Service(ReportService, "Servicio de Reporte")
+
+Repository(ClientRepository, "Repositorio de Cliente")
+Repository(ProductRepository, "Repositorio de Producto")
+Repository(OrderRepository, "Repositorio de Pedido")
+
+APIGateway(APIGateway, "API Gateway")
+
+Database(SQLServer, "SQL Server")
+Database(MongoDB, "MongoDB")
+
+Client -> ClientService : HTTP
+ClientService -> ClientRepository : consulta / escritura
+ClientRepository -> SQLServer : consulta / escritura
+
+Product -> ProductService : HTTP
+ProductService -> ProductRepository : consulta / escritura
+ProductRepository -> MongoDB : consulta / escritura
+
+Order -> OrderService : HTTP
+OrderService -> OrderRepository : consulta / escritura
+OrderRepository -> SQLServer : consulta / escritura
+
+ReportService -> SQLServer : consulta
+
+APIGateway -> ClientService : HTTP
+APIGateway -> ProductService : HTTP
+APIGateway -> OrderService : HTTP
+APIGateway -> ReportService : HTTP
+
+ClientService -up-> ClientRepository : dependencia
+ClientRepository -down-> ClientService : retorno
+ProductService -up-> ProductRepository : dependencia
+ProductRepository -down-> ProductService : retorno
+OrderService -up-> OrderRepository : dependencia
+OrderRepository -down-> OrderService : retorno
+
+SQLServer -right-> ClientRepository : BD
+SQLServer -right-> OrderRepository : BD
+SQLServer -right-> ReportService : BD
+
+MongoDB -right-> ProductRepository : BD
+
+APIGateway -up-> ClientService : API
+APIGateway -up-> ProductService : API
+APIGateway -up-> OrderService : API
+APIGateway -up-> ReportService : API
+
+@enduml
