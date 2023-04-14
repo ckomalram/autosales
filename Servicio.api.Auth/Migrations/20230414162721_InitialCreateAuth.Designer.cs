@@ -12,8 +12,8 @@ using Servicio.api.Auth.Core.Context;
 namespace Servicio.api.Auth.Migrations
 {
     [DbContext(typeof(SecurityContext))]
-    [Migration("20230409164226_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230414162721_InitialCreateAuth")]
+    partial class InitialCreateAuth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,10 +169,6 @@ namespace Servicio.api.Auth.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -210,6 +206,10 @@ namespace Servicio.api.Auth.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

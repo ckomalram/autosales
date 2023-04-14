@@ -15,12 +15,27 @@ public class SecurityContextData
             {
                 Name = "Carlyle",
                 LastName = "Komalram",
-                Direccion = "Vacamonte, La hacienda",
+                RoleName = "Admin",
                 UserName = "ckomalram",
                 Email = "glaw14@gmail.com"
             };
-            await userManager.CreateAsync(newUser, "Pass12345$$$");
 
+            await userManager.CreateAsync(newUser, "Pass12345$$$");
+            await userManager.AddToRoleAsync(newUser, "Admin");
         }
+    }
+
+    public static async Task InsertRoles(RoleManager<IdentityRole> roleManager)
+    {
+        var roles = new[] { "Admin", "Normal", "Customer" };
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                var newRole = new IdentityRole(role);
+                await roleManager.CreateAsync(newRole);
+            }
+        }
+
     }
 }

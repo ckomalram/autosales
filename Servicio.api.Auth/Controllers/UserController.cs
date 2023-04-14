@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Servicio.api.Auth.Core.Application;
 using Servicio.api.Auth.Core.Dto;
@@ -16,6 +17,7 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
+    // [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetUserSession()
     {

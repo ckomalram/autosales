@@ -36,7 +36,10 @@ builder.Services.AddCors(opt =>
 builder.Services.AddSqlServer<SecurityContext>(builder.Configuration.GetConnectionString("cnSecurityDb"));
 
 // conf identity core: autenticacion y autorización
-builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<SecurityContext>().AddSignInManager<SignInManager<User>>();
+builder.Services.AddIdentityCore<User>()
+.AddRoles<IdentityRole>() // Roles
+.AddEntityFrameworkStores<SecurityContext>()
+.AddSignInManager<SignInManager<User>>();
 
 // conf system clock: forma de obtener la hora actual y se utiliza en la autenticación de ASP.NET Core, en particular para validar los tokens JWT
 builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
@@ -71,6 +74,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+
+// conf Roles
+using (var context = app.Services.CreateScope())
+{
+    var services = context.ServiceProvider;
+
+    try
+    {
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        SecurityContextData.InsertRoles(roleManager).Wait();
+
+    }
+    catch (Exception e)
+    {
+        var logging = services.GetRequiredService<ILogger<Program>>();
+        logging.LogError(e, "Error al registrar Roles...");
+    }
+
+}
+
 // conf user for testing
 using (var context = app.Services.CreateScope())
 {
@@ -91,6 +114,8 @@ using (var context = app.Services.CreateScope())
     }
 
 }
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

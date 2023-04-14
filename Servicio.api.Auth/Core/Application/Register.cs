@@ -18,7 +18,7 @@ public class Register
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public string Direccion { get; set; }
+        // public string RoleName { get; set; }
         public string Password { get; set; }
 
     }
@@ -31,7 +31,7 @@ public class Register
             RuleFor(x => x.LastName).NotEmpty();
             RuleFor(x => x.Username).NotEmpty();
             RuleFor(x => x.Email).NotEmpty();
-            RuleFor(x => x.Direccion).NotEmpty();
+            // RuleFor(x => x.RoleName).NotEmpty();
             RuleFor(x => x.Password).NotEmpty();
         }
     }
@@ -73,10 +73,12 @@ public class Register
                 LastName = request.LastName,
                 Email = request.Email,
                 UserName = request.Username,
-                Direccion = request.Direccion
+                RoleName = "Customer"
             };
 
             var resp = await _usermanager.CreateAsync(newUser, request.Password);
+            await _usermanager.AddToRoleAsync(newUser, "Customer"); // Se crea como normal User. El admin se encarga de asignarle el role.
+
 
             if (resp.Succeeded)
             {
