@@ -14,7 +14,9 @@ public class JwtGenerator : IJwtGenerator
             // new Claim(JwtRegisteredClaimNames.NameId , user.UserName)
             new Claim("username", user.UserName),
             new Claim("name", user.Name),
-            new Claim("lastname", user.LastName)
+            new Claim("lastname", user.LastName),
+            new Claim(ClaimTypes.Role, user.RoleName)
+
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("RrF1XwA6ke5nApomZfCzrflviFtkxgqj"));

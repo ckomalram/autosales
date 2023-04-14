@@ -36,5 +36,12 @@ public class UserController : ControllerBase
         return await _mediator.Send(parametros);
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpPut("role")]
+    public async Task<ActionResult<Unit>> UpdateRole(Role.UpdateUserRoleCommand parametros)
+    {
+        return await _mediator.Send(parametros);
+    }
+
 
 }
