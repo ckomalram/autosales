@@ -52,7 +52,7 @@ public class Role
             }
 
 
-            var newRoleName = request.RoleName ?? "Customer";
+            var newRoleName = request.RoleName ?? "Reader";
             var role = await _rolemanager.FindByNameAsync(newRoleName);
 
 

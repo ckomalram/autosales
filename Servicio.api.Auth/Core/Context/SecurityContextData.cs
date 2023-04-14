@@ -27,7 +27,7 @@ public class SecurityContextData
 
     public static async Task InsertRoles(RoleManager<IdentityRole> roleManager)
     {
-        var roles = new[] { "Admin", "Normal", "Customer" };
+        var roles = new[] { "SuperAdmin", "Admin", "CustomerManager", "OrderManager", "ProductManager", "ReportManager", "Reader" };
         foreach (var role in roles)
         {
             if (!await roleManager.RoleExistsAsync(role))

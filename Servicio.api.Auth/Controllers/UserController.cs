@@ -17,7 +17,6 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
-    // [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetUserSession()
     {

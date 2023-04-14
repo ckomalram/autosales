@@ -73,11 +73,11 @@ public class Register
                 LastName = request.LastName,
                 Email = request.Email,
                 UserName = request.Username,
-                RoleName = "Customer"
+                RoleName = "Reader"
             };
 
             var resp = await _usermanager.CreateAsync(newUser, request.Password);
-            await _usermanager.AddToRoleAsync(newUser, "Customer"); // Se crea como normal User. El admin se encarga de asignarle el role.
+            await _usermanager.AddToRoleAsync(newUser, "Reader"); // Se crea como normal User. El admin se encarga de asignarle el role.
 
 
             if (resp.Succeeded)

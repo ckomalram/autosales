@@ -12,7 +12,7 @@ using Servicio.api.Auth.Core.Context;
 namespace Servicio.api.Auth.Migrations
 {
     [DbContext(typeof(SecurityContext))]
-    [Migration("20230414180312_InitialCreateAuth")]
+    [Migration("20230414201105_InitialCreateAuth")]
     partial class InitialCreateAuth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
