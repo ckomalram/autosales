@@ -1,0 +1,24 @@
+
+namespace Servicio.api.Pedido.Core.Entity;
+
+public class PaginationEntity<TDocument>
+{
+    public int PageSize { get; set; }
+    public int Page { get; set; }
+    public string Sort { get; set; }
+    public string SortDirection { get; set; }
+    public string Filter { get; set; }
+    public FilterValueClass FilterValue { get; set; }
+
+    public int PagesQuantity { get; set; }
+    public long TotalRows { get; set; }
+
+    public IEnumerable<TDocument> Data { get; set; }
+
+}
+
+public class FilterValueClass
+{
+    public string Propiedad { get; set; }
+    public string Valor { get; set; }
+}
