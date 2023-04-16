@@ -15,6 +15,38 @@
             "AuthenticationProviderKey": "Bearer",
             "AllowedScopes": []
           }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/customer/{id}",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5122
+            }
+          ],
+          "UpstreamPathTemplate": "/customer/{id}",
+          "UpstreamHttpMethod": [ "GET", "PUT" , "DELETE"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/customer/pagination",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5122
+            }
+          ],
+          "UpstreamPathTemplate": "/customer/pagination",
+          "UpstreamHttpMethod": [ "POST"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
       }
     ]
 }
