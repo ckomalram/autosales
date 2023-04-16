@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Servicio.api.Cliente.Core.Entity;
 using Servicio.api.Cliente.Core.Repository;
@@ -5,6 +6,7 @@ using Servicio.api.Cliente.Helper;
 
 namespace Servicio.api.Cliente.Controllers;
 
+[Authorize(Roles = "Admin,CustomerManager")]
 [ApiController]
 [Route("api/[controller]")]
 public class CustomerController : ControllerBase
