@@ -47,6 +47,186 @@
             "AuthenticationProviderKey": "Bearer",
             "AllowedScopes": []
           }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/order",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5268
+            }
+          ],
+          "UpstreamPathTemplate": "/order",
+          "UpstreamHttpMethod": [ "GET", "POST"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/order/{id}",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5268
+            }
+          ],
+          "UpstreamPathTemplate": "/order/{id}",
+          "UpstreamHttpMethod": [ "GET", "PUT" , "DELETE"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/order/pagination",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5268
+            }
+          ],
+          "UpstreamPathTemplate": "/order/pagination",
+          "UpstreamHttpMethod": [ "POST"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/product",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5225
+            }
+          ],
+          "UpstreamPathTemplate": "/product",
+          "UpstreamHttpMethod": [ "GET", "POST"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/product/{id}",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5225
+            }
+          ],
+          "UpstreamPathTemplate": "/product/{id}",
+          "UpstreamHttpMethod": [ "GET", "PUT" , "DELETE"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {  
+        "DownStreamPathTemplate": "/api/product/pagination",
+        "DownStreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5225
+            }
+          ],
+          "UpstreamPathTemplate": "/product/pagination",
+          "UpstreamHttpMethod": [ "POST"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {
+        "DownStreamPathTemplate": "/api/user",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5108
+            }
+          ],
+          "UpstreamPathTemplate": "/user",
+          "UpstreamHttpMethod": [ "GET"]
+      },
+      {
+        "DownStreamPathTemplate": "/api/user/register",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5108
+            }
+          ],
+          "UpstreamPathTemplate": "/user/register",
+          "UpstreamHttpMethod": [ "POST"]
+      },
+      {
+        "DownStreamPathTemplate": "/api/user/login",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5108
+            }
+          ],
+          "UpstreamPathTemplate": "/user/login",
+          "UpstreamHttpMethod": [ "POST"]
+      },
+      {
+        "DownStreamPathTemplate": "/api/user/role",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5108
+            }
+          ],
+          "UpstreamPathTemplate": "/user/role",
+          "UpstreamHttpMethod": [ "PUT"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {
+        "DownStreamPathTemplate": "/api/role",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5108
+            }
+          ],
+          "UpstreamPathTemplate": "/role",
+          "UpstreamHttpMethod": [ "GET", "POST"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
+      },
+      {
+        "DownStreamPathTemplate": "/api/role/{id}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5108
+            }
+          ],
+          "UpstreamPathTemplate": "/role/{id}",
+          "UpstreamHttpMethod": [ "GET", "PUT" , "DELETE"],
+          "AuthenticationOptions":{
+            "AuthenticationProviderKey": "Bearer",
+            "AllowedScopes": []
+          }
       }
     ]
 }
