@@ -1,3 +1,6 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -14,8 +17,35 @@ IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("ocelot.js
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// conf CORS
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsRule", rule =>
+    {
+        // rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://mipagina.com");
+        rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+    });
+});
+
+
 // Add ocelot
 builder.Services.AddOcelot(configuration);
+
+//conf auth JWT
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("RrF1XwA6ke5nApomZfCzrflviFtkxgqj"));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        // options.RequireHttpsMetadata = false;
+        // options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false, // Verificar el dominio de donde se genera el token
+            ValidateAudience = false, // true ciertos ip puedan acceder a mi aplicacion
+        };
+    });
 
 var app = builder.Build();
 
@@ -27,11 +57,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+// Add mw cors
+app.UseCors("CorsRule");
+// Add mw auth jwt
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 // Add middelware Ocelot
 app.UseOcelot().Wait();
 
